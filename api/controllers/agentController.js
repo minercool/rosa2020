@@ -42,7 +42,7 @@ router.delete("/delete/:id", async (req, res) => {
       "DELETE FROM agent WHERE id = ?",
       [req.params.id],
       (error, rows, fields) => {
-        if (rows) {
+        if (rows.affectedRows != 0) {
           res.status(200).send("deleted successfully");
         } else {
           res.status(404).send("id not found");

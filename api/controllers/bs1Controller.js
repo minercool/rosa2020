@@ -4,7 +4,7 @@ module.exports = router;
 
 router.get("/get", async (req, res) => {
   try {
-    connection.query("SELECT * FROM article", (error, rows, fields) => {
+    connection.query("SELECT * FROM bondesortie1", (error, rows, fields) => {
       if (rows.length > 0) {
         res.status(200).send(rows);
       } else {
@@ -17,16 +17,16 @@ router.get("/get", async (req, res) => {
   }
 });
 
-router.get("/get/:id", async (req, res) => {
+router.get("/get/:documentno", async (req, res) => {
   try {
     connection.query(
-      "SELECT * FROM article WHERE article_id = ?",
-      [req.params.id],
+      "SELECT * FROM bondesortie1 WHERE documentno = ?",
+      [req.params.documentno],
       (error, rows, fields) => {
         if (rows.length > 0) {
           res.status(200).send(rows[0]);
         } else {
-          res.status(404).send("id not found");
+          res.status(404).send("documentno not found");
         }
       }
     );
@@ -36,16 +36,16 @@ router.get("/get/:id", async (req, res) => {
   }
 });
 
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:documentno", async (req, res) => {
   try {
     connection.query(
-      "DELETE FROM article WHERE article_id = ?",
-      [req.params.id],
+      "DELETE FROM bondesortie1 WHERE documentno = ?",
+      [req.params.documentno],
       (error, rows, fields) => {
         if (rows.affectedRows != 0) {
           res.status(200).send("deleted successfully");
         } else {
-          res.status(404).send("id not found");
+          res.status(404).send("documentno not found");
         }
       }
     );
@@ -55,26 +55,16 @@ router.delete("/delete/:id", async (req, res) => {
   }
 });
 
-router.patch("/update/:id", async (req, res) => {
+router.patch("/update/:documentno", async (req, res) => {
   try {
     connection.query(
-      "UPDATE article SET ref = ?,nom = ?,prix =? ,mavance =?, annuite=?,mensualite= ?,2annuite = ?,2mensualite= ? WHERE article_id = ?",
-      [
-        req.body.ref,
-        req.body.nom,
-        req.body.prix,
-        req.body.mavance,
-        req.body.annuite,
-        req.body.mensualite,
-        req.body.annuite2,
-        req.body.mensualite2,
-        req.params.id,
-      ],
+      "UPDATE bondesortie1 SET date = ?,recouvreur = ? WHERE documentno = ?",
+      [req.body.date, req.body.recouvreur, req.params.documentno],
       (error, rows, fields) => {
         if (rows.affectedRows != 0) {
           res.status(200).send("updated succesffuly");
         } else {
-          res.status(404).send("id not found");
+          res.status(404).send("documentno not found");
         }
       }
     );
@@ -87,17 +77,8 @@ router.patch("/update/:id", async (req, res) => {
 router.post("/post", async (req, res) => {
   try {
     connection.query(
-      "INSERT INTO article(ref,nom,prix,mavance,annuite,mensualite,2annuite,2mensualite) VALUES(?,?,?,?,?,?,?,?)",
-      [
-        req.body.ref,
-        req.body.nom,
-        req.body.prix,
-        req.body.mavance,
-        req.body.annuite,
-        req.body.mensualite,
-        req.body.annuite2,
-        req.body.mensualite2,
-      ],
+      "INSERT INTO bondesortie1(date,recouvreur) VALUES(?,?)",
+      [req.body.date, req.body.recouvreur],
       (error, rows, fields) => {
         if (rows.affectedRows != 0) {
           res.status(200).send(rows);

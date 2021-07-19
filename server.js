@@ -6,4 +6,8 @@ app.use(cors());
 
 app.use('/agent',require('./api/controllers/agentController'));
 app.use('/article',require('./api/controllers/articleController'));
+app.use('/be',require('./api/controllers/beController'));
+app.use('/be1',require('./api/controllers/be1Controller'));
+app.use('/bs',require('./api/controllers/bsController'));
+app.use('/bs1',require('./api/controllers/bs1Controller'));
 app.listen(5000,()=>{console.log('listening on port 5000')});
