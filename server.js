@@ -18,6 +18,7 @@ app.use('/docbs',require('./api/controllers/docbsController'));
 app.use('/docbs1',require('./api/controllers/docbs1Controller'));
 app.use('/payment',require('./api/controllers/paymentController'));
 app.use('/places',require('./api/controllers/placesController'));
+app.use('/view',require('./api/controllers/viewController'));
 
 app.listen(5000, () => {
   console.log("listening on port 5000");
